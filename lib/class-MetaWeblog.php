@@ -50,43 +50,6 @@ class MetaWeblog
     }
 
     /*
-     * Function: getUsersBlogs
-     *
-     * Params:
-     *      username
-     *      password
-     *
-     * Return:
-     *      struct
-     */
-    public function getUsersBlogs($username, $password)
-    {
-        if ($this->client->query('metaWeblog.getUsersBlogs', $username, $password)) {
-
-            return $this->client->getResponse();
-
-        } else {
-
-            $this->errCode = $this->client->getErrorCode();
-            $this->errMsg = $this->client->getErrorMessage();
-
-            return false;
-        }
-    }
-
-    public function setTemplate()
-    {
-    }
-
-    public function getTemplate()
-    {
-    }
-
-    public function deletePost()
-    {
-    }
-
-    /*
      * Function: newMediaObject
      *
      * Params:
@@ -94,6 +57,8 @@ class MetaWeblog
      *      username
      *      password
      *      struct
+     *          title
+     *          content
      *
      * Return:
      *      struct
@@ -140,7 +105,7 @@ class MetaWeblog
      * Return:
      *      array of struct
      */
-    public function getRecentPosts($blogid, $username, $password, $numberOfPosts)
+    public function getRecentPosts($blogid, $username, $password, $numberOfPosts = 5)
     {
         if ($this->client->query('metaWeblog.getRecentPosts', $blogid, $username, $password, $numberOfPosts)) {
 
@@ -189,6 +154,8 @@ class MetaWeblog
      *      username
      *      password
      *      struct
+     *          title
+     *          content
      *      publish
      *
      * Return:
@@ -196,6 +163,22 @@ class MetaWeblog
      */
     public function editPost()
     {
+        $struct = array(
+            'title' = $title,
+            'description' = $content
+            );
+
+        if ($this->client->query('metaWeblog.editPost', $postid, $username, $password, $struct, $publish)) {
+
+            return $this->client->getResponse();
+
+        } else {
+
+            $this->errCode = $this->client->getErrorCode();
+            $this->errMsg = $this->client->getErrorMessage();
+
+            return false;
+        }
     }
 
     /*
@@ -206,13 +189,31 @@ class MetaWeblog
      *      username
      *      password
      *      struct
+     *          title
+     *          content
      *      publish
      *
      * Return:
      *      string
      */
-    public function newPost()
+    public function newPost($blogid, $username, $password, $title, $content, $publish=false)
     {
+        $struct = array(
+            'title' = $title,
+            'description' = $content
+            );
+
+        if ($this->client->query('metaWeblog.newPost', $blogid, $username, $password, $struct, $publish)) {
+
+            return $this->client->getResponse();
+
+        } else {
+
+            $this->errCode = $this->client->getErrorCode();
+            $this->errMsg = $this->client->getErrorMessage();
+
+            return false;
+        }
     }
 
 }
