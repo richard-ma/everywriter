@@ -2,29 +2,87 @@
 
 class MetaWeblog
 {
-    $client = NULL;
+    protected $client = null;
 
-    function __construct()
+    protected $errCode = null;
+    protected $errMsg = null;
+
+    public function __construct($client)
+    {
+        $this->client = $client;
+
+        $this->errCode = null;
+        $this->errMsg = null;
+    }
+
+    public function __destruct()
     {
     }
 
-    function __destruct()
+    /*
+     * Function: getErrorCode
+     *
+     * Params:
+     *      None
+     *
+     * Return:
+     *      error code
+     *      null - no error occurd
+     */
+    public function getErrorCode()
+    {
+        return $this->errCode;
+    }
+
+    /*
+     * Function: getErrorMessage
+     *
+     * Params:
+     *      None
+     *
+     * Return:
+     *      error message
+     *      null - no error occurd
+     */
+    public function getErrorMessage()
+    {
+        return $this->errMsg;
+    }
+
+    /*
+     * Function: getUsersBlogs
+     *
+     * Params:
+     *      username
+     *      password
+     *
+     * Return:
+     *      struct
+     */
+    public function getUsersBlogs($username, $password)
+    {
+        if ($this->client->query('metaWeblog.getUsersBlogs', $username, $password)) {
+
+            return $this->client->getResponse();
+
+        } else {
+
+            $this->errCode = $this->client->getErrorCode();
+            $this->errMsg = $this->client->getErrorMessage();
+
+            return false;
+        }
+    }
+
+    public function setTemplate()
     {
     }
 
-    function getUsersBlogs()
+    public function getTemplate()
     {
     }
 
-    function setTemplate()
-    {
-    }
-
-    function getTemplate()
-    {
-    }
-
-    function deletePost()
+    public function deletePost()
     {
     }
 
@@ -40,7 +98,7 @@ class MetaWeblog
      * Return:
      *      struct
      */
-    function newMediaObject()
+    public function newMediaObject()
     {
     }
 
@@ -55,8 +113,19 @@ class MetaWeblog
      * Return:
      *      struct
      */
-    function getCategories()
+    public function getCategories($blogid, $username, $password)
     {
+        if ($this->client->query('metaWeblog.getCategories', $blogid, $username, $password)) {
+
+            return $this->client->getResponse();
+
+        } else {
+
+            $this->errCode = $this->client->getErrorCode();
+            $this->errMsg = $this->client->getErrorMessage();
+
+            return false;
+        }
     }
 
     /*
@@ -71,8 +140,19 @@ class MetaWeblog
      * Return:
      *      array of struct
      */
-    function getRecentPosts()
+    public function getRecentPosts($blogid, $username, $password, $numberOfPosts)
     {
+        if ($this->client->query('metaWeblog.getRecentPosts', $blogid, $username, $password, $numberOfPosts)) {
+
+            return $this->client->getResponse();
+
+        } else {
+
+            $this->errCode = $this->client->getErrorCode();
+            $this->errMsg = $this->client->getErrorMessage();
+
+            return false;
+        }
     }
 
     /*
@@ -86,8 +166,19 @@ class MetaWeblog
      * Return:
      *      struct
      */
-    function getPost()
+    public function getPost()
     {
+        if ($this->client->query('metaWeblog.getPost', $postid, $username, $password)) {
+
+            return $this->client->getResponse();
+
+        } else {
+
+            $this->errCode = $this->client->getErrorCode();
+            $this->errMsg = $this->client->getErrorMessage();
+
+            return false;
+        }
     }
 
     /*
@@ -103,7 +194,7 @@ class MetaWeblog
      * Return:
      *      true
      */
-    function editPost()
+    public function editPost()
     {
     }
 
@@ -120,7 +211,7 @@ class MetaWeblog
      * Return:
      *      string
      */
-    function newPost()
+    public function newPost()
     {
     }
 
