@@ -164,8 +164,8 @@ class MetaWeblog
     public function editPost()
     {
         $struct = array(
-            'title' = $title,
-            'description' = $content
+            'title' => $title, 
+            'description' => $content
             );
 
         if ($this->client->query('metaWeblog.editPost', $postid, $username, $password, $struct, $publish)) {
@@ -199,8 +199,8 @@ class MetaWeblog
     public function newPost($blogid, $username, $password, $title, $content, $publish=false)
     {
         $struct = array(
-            'title' = $title,
-            'description' = $content
+            'title' => $title,
+            'description' => $content
             );
 
         if ($this->client->query('metaWeblog.newPost', $blogid, $username, $password, $struct, $publish)) {

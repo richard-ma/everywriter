@@ -34,12 +34,15 @@ $numberOfPosts = 1;
 //print_r($metaweblog->getErrorMessage());
 //print "===========================================\n";
 
-//print_r($metaweblog->editPost());
+$title = 'test title';
+$content = 'test content';
+$publish = false;
+print_r($metaweblog->newPost($blogid, $username, $password, $title, $content, $publish));
 //print_r($metaweblog->getErrorCode());
 //print_r($metaweblog->getErrorMessage());
-//print "===========================================\n";
+print "===========================================\n";
 
-//print_r($metaweblog->newPost());
+//print_r($metaweblog->editPost());
 //print_r($metaweblog->getErrorCode());
 //print_r($metaweblog->getErrorMessage());
 //print "===========================================\n";
