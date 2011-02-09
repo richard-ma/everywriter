@@ -1,7 +1,7 @@
 <?php
 
-require_once '../lib/class-MetaWeblog.php';
-require_once '../lib/class-IXR.php';
+require_once '../libs/api/common/class-MetaWeblog.php';
+require_once '../libs/api/class-IXR.php';
 
 /* Create xml rpc client */
 $client = new IXR_client('http://127.0.0.1/wordpress/xmlrpc.php');
