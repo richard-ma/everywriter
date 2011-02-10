@@ -2,10 +2,10 @@
 
 require_once dirname(dirname(dirname(__file__))) . '/ew-load.php';
 
-require_once APPROOT . './libs/api/class-ApiAbstract.php';
-require_once APPROOT . './libs/api/metaweblog/class-MetaWeblog.php';
+require_once APPROOT . '/libs/api/class-MetaWeblog.php';
+require_once APPROOT . '/libs/api/interface-ApiAdapter.php';
 
-class MetaweblogAdapter extends ApiAbstract
+class MetaweblogAdapter extends MetaWeblog implements ApiAdapter 
 {
     /*
      * Function: getCategories
@@ -18,6 +18,10 @@ class MetaweblogAdapter extends ApiAbstract
      */
     public function getCategories($blog)
     {
+        return parent::getCategories(
+            $blog->getBlogid(), 
+            $blog->getUsername(), 
+            $blog->getPassword());
     }
 
     /*
@@ -32,19 +36,29 @@ class MetaweblogAdapter extends ApiAbstract
      */
     public function getRecentPosts($blog, $numberOfPosts)
     {
+        return parent::getRecentPosts(
+            $blog->getBlogid(),
+            $blog->getUsername(),
+            $blog->getPassword(),
+            $numberOfPosts);
     }
 
     /*
      * Function: getPost
      *
      * Params:
+     *      blog
      *      post
      *
      * Return:
      *      struct
      */
-    public function getPost($post)
+    public function getPost($blog, $post)
     {
+        return parent::getPost(
+            $post->getPostid(),
+            $blog->getUsername(),
+            $blog->getPassword());
     }
 
     /*
@@ -53,12 +67,20 @@ class MetaweblogAdapter extends ApiAbstract
      * Params:
      *      blog
      *      post
+     *      publish
      *
      * Return:
      *      true
      */
-    public function editPost($blog, $post)
+    public function editPost($blog, $post, $publish)
     {
+        return parent::editPost(
+            $post->getPostid(),
+            $blog->getUsername(),
+            $blog->getPassword(),
+            $post->getTitle(),
+            $post->getContent(),
+            $publish);
     }
 
     /*
@@ -67,178 +89,20 @@ class MetaweblogAdapter extends ApiAbstract
      * Params:
      *      blog
      *      post
-     *
-     * Return:
-     *      string
-     */
-    public function newPost($blog, $post)
-    {
-    }
-
-    /*
-     * Function: _newMediaObject
-     *
-     * Params:
-     *      blogid
-     *      username
-     *      password
-     *      struct
-     *          title
-     *          content
-     *
-     * Return:
-     *      struct
-     */
-    public function _newMediaObject()
-    {
-    }
-
-    /*
-     * Function: _getCategories
-     *
-     * Params:
-     *      blogid
-     *      username
-     *      password
-     *
-     * Return:
-     *      struct
-     */
-    public function _getCategories($blogid, $username, $password)
-    {
-        if ($this->client->query('metaWeblog.getCategories', $blogid, $username, $password)) {
-
-            return $this->client->getResponse();
-
-        } else {
-
-            $this->errCode = $this->client->getErrorCode();
-            $this->errMsg = $this->client->getErrorMessage();
-
-            return false;
-        }
-    }
-
-    /*
-     * Function: _getRecentPosts
-     *
-     * Params:
-     *      blogid
-     *      username
-     *      password
-     *      numberOfPosts
-     *
-     * Return:
-     *      array of struct
-     */
-    public function _getRecentPosts($blogid, $username, $password, $numberOfPosts = 5)
-    {
-        if ($this->client->query('metaWeblog.getRecentPosts', $blogid, $username, $password, $numberOfPosts)) {
-
-            return $this->client->getResponse();
-
-        } else {
-
-            $this->errCode = $this->client->getErrorCode();
-            $this->errMsg = $this->client->getErrorMessage();
-
-            return false;
-        }
-    }
-
-    /*
-     * Function: _getPost
-     *
-     * Params:
-     *      postid
-     *      username
-     *      password
-     *
-     * Return:
-     *      struct
-     */
-    public function _getPost()
-    {
-        if ($this->client->query('metaWeblog.getPost', $postid, $username, $password)) {
-
-            return $this->client->getResponse();
-
-        } else {
-
-            $this->errCode = $this->client->getErrorCode();
-            $this->errMsg = $this->client->getErrorMessage();
-
-            return false;
-        }
-    }
-
-    /*
-     * Function: _editPost
-     *
-     * Params:
-     *      postid
-     *      username
-     *      password
-     *      struct
-     *          title
-     *          content
-     *      publish
-     *
-     * Return:
-     *      true
-     */
-    public function _editPost()
-    {
-        $struct = array(
-            'title' => $title, 
-            'description' => $content
-            );
-
-        if ($this->client->query('metaWeblog.editPost', $postid, $username, $password, $struct, $publish)) {
-
-            return $this->client->getResponse();
-
-        } else {
-
-            $this->errCode = $this->client->getErrorCode();
-            $this->errMsg = $this->client->getErrorMessage();
-
-            return false;
-        }
-    }
-
-    /*
-     * Function: _newPost
-     *
-     * Params:
-     *      blogid
-     *      username
-     *      password
-     *      struct
-     *          title
-     *          content
      *      publish
      *
      * Return:
      *      string
      */
-    public function _newPost($blogid, $username, $password, $title, $content, $publish=false)
+    public function newPost($blog, $post, $publish)
     {
-        $struct = array(
-            'title' => $title,
-            'description' => $content
-            );
-
-        if ($this->client->query('metaWeblog.newPost', $blogid, $username, $password, $struct, $publish)) {
-
-            return $this->client->getResponse();
-
-        } else {
-
-            $this->errCode = $this->client->getErrorCode();
-            $this->errMsg = $this->client->getErrorMessage();
-
-            return false;
-        }
+        return parent::newPost(
+            $blog->getBlogid(),
+            $blog->getUsername(),
+            $blog->getPassword(),
+            $post->getTitle(),
+            $post->getContent(),
+            $publish);
     }
+
 }
