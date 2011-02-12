@@ -1,15 +1,11 @@
 <?php
 
-class Wp
+require_once dirname(dirname(dirname(__file__))) . '/ew-load.php';
+
+require_once APPROOT . '/libs/api/class-Api.php';
+
+class Wordpress extends Api
 {
-    function __construct()
-    {
-    }
-
-    function __destruct()
-    {
-    }
-
     function getCommentStatusList()
     {
     }
