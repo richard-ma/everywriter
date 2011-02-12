@@ -20,7 +20,7 @@ class Blog
     public function setBlogid($blogid)
     {
         $this->_blogid = $blogid;
-        return $this
+        return $this;
     }
     public function getBlogid()
     {
@@ -30,7 +30,7 @@ class Blog
     public function setUsername($username)
     {
         $this->_username = $username;
-        return $this
+        return $this;
     }
     public function getUsername()
     {
@@ -40,7 +40,7 @@ class Blog
     public function setPassword($password)
     {
         $this->_password = $password;
-        return $this
+        return $this;
     }
     public function getPassword()
     {
@@ -50,7 +50,7 @@ class Blog
     public function setBaseurl($baseurl)
     {
         $this->_baseurl = $baseurl;
-        return $this
+        return $this;
     }
     public function getBaseurl()
     {
@@ -60,7 +60,7 @@ class Blog
     public function setXmlrpcsuffix($xmlrpcsuffix)
     {
         $this->_xmlrpcsuffix = $xmlrpcsuffix;
-        return $this
+        return $this;
     }
     public function getXmlrpcsuffix()
     {

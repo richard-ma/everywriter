@@ -3,4 +3,9 @@
 /**
  * Define the application root directory.
  */
-define('APPROOT', dirname(__FILE__));
+if (!defined('APPROOT')) define('APPROOT', dirname(__FILE__));
+
+/**
+ * Define the umimpletement method string
+ */
+if (!defined('API_UNIMPLEMENT')) define('API_UNIMPLEMENT', 'Unimplement Method');

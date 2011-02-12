@@ -15,6 +15,7 @@ class Post
 
     public function __construct()
     {
+        $_postid        = null;
         $_title         = null;
         $_link          = null;
         $_description   = null;
@@ -27,6 +28,16 @@ class Post
         $_source        = null;
     }
     
+    public function setPostid($postid)
+    {
+        $this->_postid= $postid;
+        return $this;
+    }
+    public function getPostid()
+    {
+        return $this->_postid;
+    }
+
     public function setTitle($title)
     {
         $this->_title = $title;

@@ -6,6 +6,40 @@ require_once APPROOT . '/libs/api/class-Api.php';
 
 class Metaweblog extends Api
 {
+    /**
+     * Function: newMediaObject
+     *
+     * Params:
+     *      blogid
+     *      username
+     *      password
+     *      struct
+     *          element
+     *
+     * Return:
+     *      struct
+     */
+    public function newMediaObject($blogid, $username, $password, $struct)
+    {
+        //TODO implements this method.
+
+        return API_UNIMPLEMENT;
+
+        /*
+        if ($this->client->query('metaWeblog.newMediaObject', $blogid, $username, $password, $struct)) {
+
+            return $this->client->getResponse();
+
+        } else {
+
+            $this->errCode = $this->client->getErrorCode();
+            $this->errMsg = $this->client->getErrorMessage();
+
+            return null;
+        }
+         */
+    }
+
     /*
      * Function: getCategories
      *
@@ -28,7 +62,7 @@ class Metaweblog extends Api
             $this->errCode = $this->client->getErrorCode();
             $this->errMsg = $this->client->getErrorMessage();
 
-            return false;
+            return null;
         }
     }
 
@@ -55,7 +89,7 @@ class Metaweblog extends Api
             $this->errCode = $this->client->getErrorCode();
             $this->errMsg = $this->client->getErrorMessage();
 
-            return false;
+            return null;
         }
     }
 
@@ -81,7 +115,7 @@ class Metaweblog extends Api
             $this->errCode = $this->client->getErrorCode();
             $this->errMsg = $this->client->getErrorMessage();
 
-            return false;
+            return null;
         }
     }
 
@@ -116,7 +150,7 @@ class Metaweblog extends Api
             $this->errCode = $this->client->getErrorCode();
             $this->errMsg = $this->client->getErrorMessage();
 
-            return false;
+            return null;
         }
     }
 
@@ -151,7 +185,7 @@ class Metaweblog extends Api
             $this->errCode = $this->client->getErrorCode();
             $this->errMsg = $this->client->getErrorMessage();
 
-            return false;
+            return null;
         }
     }
 }

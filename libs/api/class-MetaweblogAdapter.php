@@ -2,11 +2,30 @@
 
 require_once dirname(dirname(dirname(__file__))) . '/ew-load.php';
 
-require_once APPROOT . '/libs/api/class-MetaWeblog.php';
+require_once APPROOT . '/libs/api/class-Metaweblog.php';
 require_once APPROOT . '/libs/api/interface-ApiAdapter.php';
 
 class MetaweblogAdapter extends MetaWeblog implements ApiAdapter 
 {
+    /**
+     * Function: newMediaObject
+     *
+     * Params:
+     *      blog
+     *      media
+     *
+     * Return:
+     *      struct
+     */
+    public function newMediaObject($blog, $media)
+    {
+        return parent::newMediaObject(
+            $blog->getBlogid(),
+            $blog->getUsername(),
+            $blog->getPassword(),
+            $media);
+    }
+
     /*
      * Function: getCategories
      *
@@ -79,7 +98,7 @@ class MetaweblogAdapter extends MetaWeblog implements ApiAdapter
             $blog->getUsername(),
             $blog->getPassword(),
             $post->getTitle(),
-            $post->getContent(),
+            $post->getDescription(),
             $publish);
     }
 
@@ -101,7 +120,7 @@ class MetaweblogAdapter extends MetaWeblog implements ApiAdapter
             $blog->getUsername(),
             $blog->getPassword(),
             $post->getTitle(),
-            $post->getContent(),
+            $post->getDescription(),
             $publish);
     }
 
