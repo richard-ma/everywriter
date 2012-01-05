@@ -1,0 +1,17 @@
+application: everywriter
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /ckeditor
+  static_dir: ckeditor
+
+- url: /css
+  static_dir: css
+
+- url: /js
+  static_dir: js
+
+- url: /.*
+  script: main.py
