@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>EveryWriter</title>
+        <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+    </head>
+    <body>
+        <div id="options">
+            <span>{{ user }}</span>
+            <a href="{{ url }}">{{ url_linktext }}</a>
+        </div>
+        <form action="/backend?op=newpost" method="POST">
+            <div>xmlrpc: <input name="xmlrpc" type="text" /></div>
+            <div>
+                Username: <input name="username" type="text" />
+                Password: <input name="password" type="PASSWORD" />
+            </div>
+            <div>Title: <input name="title" type="text" /></div>
+            <div><textarea class="ckeditor" name="content"></textarea></div>
+            <div><input type="SUBMIT" value="Post" /></div>
+        </form>
+
+    </body>
+</html>

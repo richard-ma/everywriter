@@ -5,10 +5,11 @@ import urllib
 import wsgiref.handlers
 
 import xmlrpclib
-import xmlrpc_server
-import api_blogger
-from util import GAEXMLRPCTransport
+import xmlrpcserver
+import apiblogger
+import apimovabletype
 
+from util import GAEXMLRPCTransport
 
 from google.appengine.ext import db
 from google.appengine.api import users
@@ -50,17 +51,20 @@ class BackendHandler(webapp.RequestHandler):
         self.error(404)
 
     def post(self):
-        url = "http://127.0.0.1/wordpress/xmlrpc.php"
-        username = "tjlug"
-        password = "tjlug"
-        user = xmlrpc_server.User(username, password)
+        blog = xmlrpcserver.XmlrpcBlog(
+                self.request.get('xmlrpc'))
+        user = xmlrpcserver.XmlrpcUser(
+                self.request.get('username'),
+                self.request.get('password'))
+        op = self.request.get('op')
 
-        server = xmlrpclib.ServerProxy(url, GAEXMLRPCTransport())
+        post = xmlrpcserver.XmlrpcPost()
+        server = xmlrpcserver.XmlrpcServer(blog, user)
+        post.title = self.request.get('title')
+        post.description = self.request.get('content')
 
-        blogger = api_blogger.Blogger(server, user)
-        self.response.out.write(blogger.getUserInfo())
-
-        self.response.out.write(self.request.get('content'))
+        if op == 'newpost':
+            server.newPost(post, True)
 
 application = webapp.WSGIApplication(
         [('/', indexHandler),
