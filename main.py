@@ -66,10 +66,25 @@ class BackendHandler(webapp.RequestHandler):
         if op == 'newpost':
             server.newPost(post, True)
 
-application = webapp.WSGIApplication(
-        [('/', indexHandler),
+class  AjaxPostHandler(webapp.RequestHandler):
+    def post(self):
+        pass
+
+class AjaxDebugHandler(webapp.RequestHandler):
+    def get(self):
+        self.response.out.write('ajax debug handlers test')
+
+controllerList = [
+        ('/', indexHandler),
         ('/frontend', FrontendHandler),
-        ('/backend', BackendHandler)],
+        ('/backend', BackendHandler),
+# Ajax Post Url
+        ('/ajax/debug', AjaxDebugHandler),
+        ('/ajax/post', AjaxPostHandler),
+        ]
+
+application = webapp.WSGIApplication(
+        controllerList,
         debug=True)
 
 if __name__ == "__main__":

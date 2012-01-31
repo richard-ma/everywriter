@@ -78,8 +78,8 @@ class XmlrpcServer:
         self.server = xmlrpclib.ServerProxy(self.blog.xmlrpc, GAEXMLRPCTransport())
 
         self._allowed_methods = self.server.system.listMethods()
-        self.user = self.getUserInfo()
-        self.blog = self.getUsersBlogs()
+        #self.user = self.getUserInfo()
+        #self.blog = self.getUsersBlogs()
 
     def getAllowedMethods(self):
         return self._allowed_methods
